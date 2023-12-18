@@ -10,8 +10,8 @@ import ru.mipt.bit.platformer.util.GdxGameUtils;
 public class StaticTexturedObject extends TexturedObject {
     protected TiledMapTileLayer groundLayer;
 
-    public StaticTexturedObject(String pathToTexture, GridPoint2 initialCoorditates, TiledMapTileLayer groundLayer) {
-        super(pathToTexture, initialCoorditates);
+    public StaticTexturedObject(String pathToTexture, GridPoint2 initialCoordinates, TiledMapTileLayer groundLayer) {
+        super(pathToTexture, initialCoordinates);
         this.groundLayer = groundLayer;
     }
 

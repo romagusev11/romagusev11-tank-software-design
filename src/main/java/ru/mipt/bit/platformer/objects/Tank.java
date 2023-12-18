@@ -32,13 +32,13 @@ public class Tank extends MovableTexturedObject implements Collidable {
         }
     }
 
-    public GridPoint2 getCoordinates() {
-        return coordinates;
-    }
-
     public void move(Direction direction) {
         movementProgress -= 1;
         destination = GdxGameUtils.move(destination, direction.x, direction.y);
+    }
+
+    public GridPoint2 getCoordinates() {
+        return coordinates;
     }
 
     public void rotate(Direction direction) {

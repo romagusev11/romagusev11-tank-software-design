@@ -11,10 +11,10 @@ public class MovableTexturedObject extends TexturedObject {
     protected GridPoint2 destination;
     protected float movementProgress;
 
-    public MovableTexturedObject(String pathToTexture, GridPoint2 initialCoorditates, TileMovement tileMovement) {
-        super(pathToTexture, initialCoorditates);
+    public MovableTexturedObject(String pathToTexture, GridPoint2 initialCoordinates, TileMovement tileMovement) {
+        super(pathToTexture, initialCoordinates);
         this.tileMovement = tileMovement;
-        destination = initialCoorditates;
+        destination = initialCoordinates;
         movementProgress = 0;
     }
 

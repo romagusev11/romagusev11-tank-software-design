@@ -19,8 +19,6 @@ import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 public class GameDesktopLauncher implements ApplicationListener {
 
-    private State state;
-
     private RenderEngine renderEngine;
     private LogicEngine logicEngine;
     private InputHandler inputHandler;  
@@ -30,7 +28,7 @@ public class GameDesktopLauncher implements ApplicationListener {
         Map map = new Map("level.tmx");
         Tank player = new Tank("images/tank_blue.png", new GridPoint2(1, 1), 0, map.getTileMovement());
         Tree tree = new Tree("images/greenTree.png", new GridPoint2(1, 3), map.getGroundLayer());
-        state = new State(player, tree, map);
+        State state = new State(player, tree, map);
         renderEngine = new RenderEngine(state.getMap(), state.getMesh());
         logicEngine = new LogicEngine(player, new CollisionDetector(state.getCollision()));
         inputHandler = new InputHandler(logicEngine);

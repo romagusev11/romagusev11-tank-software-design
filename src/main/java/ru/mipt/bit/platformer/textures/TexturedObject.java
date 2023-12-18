@@ -16,18 +16,13 @@ public abstract class TexturedObject implements Drawable {
     protected GridPoint2 coordinates;
     protected float rotation;
 
-    public TexturedObject(String pathToTexture, GridPoint2 initialCoorditates) {
+    public TexturedObject(String pathToTexture, GridPoint2 initialCoordinates) {
         texture = new Texture(pathToTexture);
         graphics = new TextureRegion(texture);
         rectangle = createBoundingRectangle(graphics);
-        coordinates = initialCoorditates;
+        coordinates = initialCoordinates;
         rotation = 0;
     }
-
-    public GridPoint2 getCoordinates() {
-        return coordinates;
-    }
-
     @Override
     public void dispose() {
         texture.dispose();
