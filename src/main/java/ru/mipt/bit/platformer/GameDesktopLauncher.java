@@ -10,6 +10,7 @@ import ru.mipt.bit.platformer.objects.Tree;
 import ru.mipt.bit.platformer.objects.Tank;
 import ru.mipt.bit.platformer.base.Map;
 import ru.mipt.bit.platformer.base.State;
+import ru.mipt.bit.platformer.engine.CollisionDetector;
 import ru.mipt.bit.platformer.engine.InputHandler;
 import ru.mipt.bit.platformer.engine.LogicEngine;
 import ru.mipt.bit.platformer.engine.RenderEngine;
@@ -31,7 +32,7 @@ public class GameDesktopLauncher implements ApplicationListener {
         Tree tree = new Tree("images/greenTree.png", new GridPoint2(1, 3), map.getGroundLayer());
         state = new State(player, tree, map);
         renderEngine = new RenderEngine(state.getMap(), state.getMesh());
-        logicEngine = new LogicEngine(player, state.getCollision());
+        logicEngine = new LogicEngine(player, new CollisionDetector(state.getCollision()));
         inputHandler = new InputHandler(logicEngine);
     }
 
