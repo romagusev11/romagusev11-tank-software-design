@@ -1,9 +1,12 @@
-package ru.mipt.bit.platformer.game;
+package ru.mipt.bit.platformer.engine;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapRenderer;
 
+import ru.mipt.bit.platformer.base.State;
+import ru.mipt.bit.platformer.objects.Tank;
+import ru.mipt.bit.platformer.objects.TexturedObject;
 import ru.mipt.bit.platformer.util.GdxGameUtils;
 
 public class RenderEngine {
@@ -27,10 +30,14 @@ public class RenderEngine {
         batch.begin();
 
         // render player
+        Tank player = state.getPlayer();
+        state.getMap().getTileMovement().moveRectangleBetweenTileCenters(player.getRectangle(), player.getCoordinates(), player.getDestination(), state.getPlayer().getMovementProgress());
         GdxGameUtils.drawTextureRegionUnscaled(batch, state.getPlayer().getGraphics(), state.getPlayer().getRectangle(), state.getPlayer().getRotation());
 
         // render tree obstacle
-        GdxGameUtils.drawTextureRegionUnscaled(batch, state.getTree().getObstacleGraphics(), state.getTree().getObstacleRectangle(), 0f);
+        TexturedObject tree = state.getTree();
+        GdxGameUtils.moveRectangleAtTileCenter(state.getMap().getGroundLayer(), tree.getRectangle(), tree.getCoordinates());
+        GdxGameUtils.drawTextureRegionUnscaled(batch, state.getTree().getGraphics(), state.getTree().getRectangle(), 0f);
 
         // submit all drawing requests
         batch.end();

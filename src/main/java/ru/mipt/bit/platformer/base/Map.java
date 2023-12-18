@@ -1,4 +1,4 @@
-package ru.mipt.bit.platformer.map;
+package ru.mipt.bit.platformer.base;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;

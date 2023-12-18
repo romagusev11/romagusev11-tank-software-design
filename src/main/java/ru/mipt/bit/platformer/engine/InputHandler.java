@@ -1,6 +1,9 @@
-package ru.mipt.bit.platformer.game;
+package ru.mipt.bit.platformer.engine;
 
 import com.badlogic.gdx.Gdx;
+
+import ru.mipt.bit.platformer.base.Direction;
+
 import static com.badlogic.gdx.Input.Keys.*;
 
 public class InputHandler {
@@ -13,16 +16,16 @@ public class InputHandler {
 
     public void handleInput() {
         if (Gdx.input.isKeyPressed(UP) || Gdx.input.isKeyPressed(W)) {
-                logicEngine.updatePlayerPosition(Direction.UP);
+                logicEngine.updatePlayerDestination(Direction.UP);
             }
         if (Gdx.input.isKeyPressed(LEFT) || Gdx.input.isKeyPressed(A)) {
-                logicEngine.updatePlayerPosition(Direction.LEFT);
+                logicEngine.updatePlayerDestination(Direction.LEFT);
             }
         if (Gdx.input.isKeyPressed(DOWN) || Gdx.input.isKeyPressed(S)) {
-                logicEngine.updatePlayerPosition(Direction.DOWN);
+                logicEngine.updatePlayerDestination(Direction.DOWN);
             }
         if (Gdx.input.isKeyPressed(RIGHT) || Gdx.input.isKeyPressed(D)) {
-            logicEngine.updatePlayerPosition(Direction.RIGHT);
+            logicEngine.updatePlayerDestination(Direction.RIGHT);
         }
     }
 }
