@@ -25,9 +25,9 @@ public class CollisionDetector {
         GridPoint2 destination = move(from.getCoordinates(), direction.x, direction.y);
         for (GameObject c : collision) {
             if (destination.equals(c.getCoordinates())) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }
