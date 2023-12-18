@@ -1,4 +1,4 @@
-package ru.mipt.bit.platformer.objects;
+package ru.mipt.bit.platformer.textures;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 

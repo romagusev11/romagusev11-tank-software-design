@@ -1,22 +1,21 @@
 package ru.mipt.bit.platformer.engine;
 
-import java.util.Collection;
-
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapRenderer;
 
 import ru.mipt.bit.platformer.base.Map;
-import ru.mipt.bit.platformer.objects.Drawable;
+import ru.mipt.bit.platformer.base.Mesh;
+import ru.mipt.bit.platformer.textures.Drawable;
 import ru.mipt.bit.platformer.util.GdxGameUtils;
 
 public class RenderEngine {
     private final Batch batch;
     private final MapRenderer levelRenderer;
-    private final Collection<Drawable> mesh;
+    private final Mesh mesh;
     private final Map map;
 
-    public RenderEngine(Map map, Collection<Drawable> mesh) {
+    public RenderEngine(Map map, Mesh mesh) {
         batch = new SpriteBatch();
         this.mesh = mesh;
         this.map = map;
@@ -32,7 +31,7 @@ public class RenderEngine {
         batch.begin();
 
         // render everything
-        for (Drawable d : mesh) {
+        for (Drawable d : mesh.getMesh()) {
             d.draw(batch);
         }
 
@@ -41,7 +40,7 @@ public class RenderEngine {
     }
 
     public void dispose() {
-        for (Drawable d : mesh) {
+        for (Drawable d : mesh.getMesh()) {
             d.dispose();
         }
         map.getLevel().dispose();

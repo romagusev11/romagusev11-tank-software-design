@@ -9,11 +9,13 @@ import com.badlogic.gdx.math.GridPoint2;
 import ru.mipt.bit.platformer.objects.Tree;
 import ru.mipt.bit.platformer.objects.Tank;
 import ru.mipt.bit.platformer.base.Map;
-import ru.mipt.bit.platformer.base.State;
+import ru.mipt.bit.platformer.base.Mesh;
 import ru.mipt.bit.platformer.engine.CollisionDetector;
 import ru.mipt.bit.platformer.engine.InputHandler;
 import ru.mipt.bit.platformer.engine.LogicEngine;
 import ru.mipt.bit.platformer.engine.RenderEngine;
+import ru.mipt.bit.platformer.textures.MovableTexturedObject;
+import ru.mipt.bit.platformer.textures.StaticTexturedObject;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
@@ -26,11 +28,13 @@ public class GameDesktopLauncher implements ApplicationListener {
     @Override
     public void create() {
         Map map = new Map("level.tmx");
-        Tank player = new Tank("images/tank_blue.png", new GridPoint2(1, 1), 0, map.getTileMovement());
-        Tree tree = new Tree("images/greenTree.png", new GridPoint2(1, 3), map.getGroundLayer());
-        State state = new State(player, tree, map);
-        renderEngine = new RenderEngine(state.getMap(), state.getMesh());
-        logicEngine = new LogicEngine(player, new CollisionDetector(state.getCollision()));
+        Tank player = new Tank(0, new GridPoint2(1, 1));
+        Tree tree = new Tree(new GridPoint2(1, 3));
+        Mesh mesh = new Mesh().addDrawable(new StaticTexturedObject("images/greenTree.png", map.getGroundLayer(), tree))
+                .addDrawable(new MovableTexturedObject("images/tank_blue.png", map.getTileMovement(), player));
+        renderEngine = new RenderEngine(map, mesh);
+        CollisionDetector detector = new CollisionDetector().addCollidable(tree).addCollidable(player);
+        logicEngine = new LogicEngine(player, detector);
         inputHandler = new InputHandler(logicEngine);
     }
 

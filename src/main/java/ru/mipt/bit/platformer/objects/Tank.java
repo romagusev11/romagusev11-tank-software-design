@@ -3,21 +3,24 @@ package ru.mipt.bit.platformer.objects;
 import com.badlogic.gdx.math.GridPoint2;
 
 import ru.mipt.bit.platformer.base.Direction;
-import ru.mipt.bit.platformer.textures.MovableTexturedObject;
 import ru.mipt.bit.platformer.util.GdxGameUtils;
-import ru.mipt.bit.platformer.util.TileMovement;
 
-public class Tank extends MovableTexturedObject implements Collidable {
+public class Tank implements Movable {
     private final static float MOVEMENT_SPEED = 0.4f;
-    
-    public Tank(String pathToTexture, GridPoint2 initialCoorditates, float initialRotation, TileMovement tileMovement) {
-        super(pathToTexture, initialCoorditates, tileMovement);
+    private float rotation;
+    private float movementProgress;
+    private GridPoint2 coordinates;
+    private GridPoint2 destination;
+
+    public Tank(float initialRotation, GridPoint2 coordinates) {
         rotation = initialRotation;
         movementProgress = 0;
+        this.coordinates = coordinates;
     }
 
-    public float getRotation() {
-        return rotation;
+    @Override
+    public GridPoint2 getDestination() {
+        return destination;
     }
 
     public float getMovementProgress() {
@@ -39,6 +42,11 @@ public class Tank extends MovableTexturedObject implements Collidable {
 
     public GridPoint2 getCoordinates() {
         return coordinates;
+    }
+
+    @Override
+    public float getRotation() {
+        return rotation;
     }
 
     public void rotate(Direction direction) {
