@@ -3,27 +3,36 @@ package ru.mipt.bit.platformer.engine;
 import com.badlogic.gdx.math.GridPoint2;
 import static ru.mipt.bit.platformer.util.GdxGameUtils.*;
 
+import java.util.Collection;
+
 import ru.mipt.bit.platformer.base.Direction;
-import ru.mipt.bit.platformer.base.State;
+import ru.mipt.bit.platformer.objects.Collidable;
 import ru.mipt.bit.platformer.objects.Tank;
 
 public class LogicEngine {
 
-    private final State state;
+    private final Tank player;
+    private final Collection<Collidable> collision;
 
-    public LogicEngine(State state) {
-        this.state = state;
+    public LogicEngine(Tank player, Collection<Collidable> collision) {
+        this.player = player;
+        this.collision = collision;
     }
 
-    private boolean checkCollision(GridPoint2 from, GridPoint2 to, Direction direction) {
-        return move(from, direction.x, direction.y).equals(to);
+    private boolean checkCollision(Collidable from, Direction direction) {
+        GridPoint2 destination = move(from.getCoordinates(), direction.x, direction.y);
+        for (Collidable c : collision) {
+            if (destination.equals(c.getCoordinates())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void updatePlayerDestination(Direction direction) {
-        Tank player = state.getPlayer();
         if (player.getMovementProgress() >= 1) {
             // check potential player destination for collision with obstacles
-            if (!checkCollision(player.getCoordinates(), state.getTree().getCoordinates(), direction)) {
+            if (checkCollision(player, direction)) {
                 player.move(direction);
             }
             player.rotate(direction);
@@ -31,12 +40,7 @@ public class LogicEngine {
     }
 
     public void calculatePlayerCoordinates(float deltaTime) {
-        Tank player = state.getPlayer();
         player.updateMovementProgress(deltaTime);
-        if (player.getMovementProgress() >= 1) {
-            // record that the player has reached his/her destination
-            player.setCoordinates(player.getDestination());
-        }
     }
 }
 

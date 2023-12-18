@@ -3,18 +3,16 @@ package ru.mipt.bit.platformer.objects;
 import com.badlogic.gdx.math.GridPoint2;
 
 import ru.mipt.bit.platformer.base.Direction;
+import ru.mipt.bit.platformer.textures.MovableTexturedObject;
 import ru.mipt.bit.platformer.util.GdxGameUtils;
+import ru.mipt.bit.platformer.util.TileMovement;
 
-public class Tank extends TexturedObject {
-    public final static float MOVEMENT_SPEED = 0.4f;
-    private float rotation;
-    private GridPoint2 destination;
-    private float movementProgress;
+public class Tank extends MovableTexturedObject implements Collidable {
+    private final static float MOVEMENT_SPEED = 0.4f;
     
-    public Tank(String pathToTexture, GridPoint2 initialCoorditates, float initialRotation) {
-        super(pathToTexture, initialCoorditates);
+    public Tank(String pathToTexture, GridPoint2 initialCoorditates, float initialRotation, TileMovement tileMovement) {
+        super(pathToTexture, initialCoorditates, tileMovement);
         rotation = initialRotation;
-        destination = initialCoorditates;
         movementProgress = 0;
     }
 
@@ -28,6 +26,14 @@ public class Tank extends TexturedObject {
 
     public void updateMovementProgress(float deltaTime) {
         movementProgress = GdxGameUtils.continueProgress(movementProgress, deltaTime, Tank.MOVEMENT_SPEED);
+        if (movementProgress >= 1) {
+            // record that tank has reached destination
+            coordinates = destination;
+        }
+    }
+
+    public GridPoint2 getCoordinates() {
+        return coordinates;
     }
 
     public void move(Direction direction) {
@@ -37,17 +43,5 @@ public class Tank extends TexturedObject {
 
     public void rotate(Direction direction) {
         rotation = direction.rotation;
-    }
-
-    public void setRotation(float rotation) {
-        this.rotation = rotation;
-    }
-
-    public GridPoint2 getDestination() {
-        return destination;
-    }
-
-    public void setDestination(GridPoint2 destination) {
-        this.destination = destination;
     }
 }

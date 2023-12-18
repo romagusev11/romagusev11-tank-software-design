@@ -27,11 +27,11 @@ public class GameDesktopLauncher implements ApplicationListener {
     @Override
     public void create() {
         Map map = new Map("level.tmx");
-        Tank player = new Tank("images/tank_blue.png", new GridPoint2(1, 1), 0);
-        Tree tree = new Tree("images/greenTree.png", new GridPoint2(1, 3));
+        Tank player = new Tank("images/tank_blue.png", new GridPoint2(1, 1), 0, map.getTileMovement());
+        Tree tree = new Tree("images/greenTree.png", new GridPoint2(1, 3), map.getGroundLayer());
         state = new State(player, tree, map);
-        renderEngine = new RenderEngine(state);
-        logicEngine = new LogicEngine(state);
+        renderEngine = new RenderEngine(state.getMap(), state.getMesh());
+        logicEngine = new LogicEngine(player, state.getCollision());
         inputHandler = new InputHandler(logicEngine);
     }
 

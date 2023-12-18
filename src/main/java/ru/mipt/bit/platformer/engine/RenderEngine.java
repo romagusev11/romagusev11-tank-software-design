@@ -1,26 +1,28 @@
 package ru.mipt.bit.platformer.engine;
 
+import java.util.Collection;
+
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapRenderer;
 
-import ru.mipt.bit.platformer.base.State;
-import ru.mipt.bit.platformer.objects.Tank;
-import ru.mipt.bit.platformer.objects.TexturedObject;
+import ru.mipt.bit.platformer.base.Map;
+import ru.mipt.bit.platformer.objects.Drawable;
 import ru.mipt.bit.platformer.util.GdxGameUtils;
 
 public class RenderEngine {
     private final Batch batch;
     private final MapRenderer levelRenderer;
+    private final Collection<Drawable> mesh;
+    private final Map map;
 
-    private final State state;
-
-    public RenderEngine(State state) {
-        this.state = state;
+    public RenderEngine(Map map, Collection<Drawable> mesh) {
         batch = new SpriteBatch();
+        this.mesh = mesh;
+        this.map = map;
 
         // load level tiles
-        levelRenderer = GdxGameUtils.createSingleLayerMapRenderer(state.getMap().getLevel(), batch);
+        levelRenderer = GdxGameUtils.createSingleLayerMapRenderer(map.getLevel(), batch);
     }
 
     public void render() {
@@ -29,24 +31,20 @@ public class RenderEngine {
         // start recording all drawing commands
         batch.begin();
 
-        // render player
-        Tank player = state.getPlayer();
-        state.getMap().getTileMovement().moveRectangleBetweenTileCenters(player.getRectangle(), player.getCoordinates(), player.getDestination(), state.getPlayer().getMovementProgress());
-        GdxGameUtils.drawTextureRegionUnscaled(batch, state.getPlayer().getGraphics(), state.getPlayer().getRectangle(), state.getPlayer().getRotation());
-
-        // render tree obstacle
-        TexturedObject tree = state.getTree();
-        GdxGameUtils.moveRectangleAtTileCenter(state.getMap().getGroundLayer(), tree.getRectangle(), tree.getCoordinates());
-        GdxGameUtils.drawTextureRegionUnscaled(batch, state.getTree().getGraphics(), state.getTree().getRectangle(), 0f);
+        // render everything
+        for (Drawable d : mesh) {
+            d.draw(batch);
+        }
 
         // submit all drawing requests
         batch.end();
     }
 
     public void dispose() {
-        state.getTree().getTexture().dispose();
-        state.getPlayer().getTexture().dispose();
-        state.getMap().getLevel().dispose();
+        for (Drawable d : mesh) {
+            d.dispose();
+        }
+        map.getLevel().dispose();
         batch.dispose();
     }
 }
