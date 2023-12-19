@@ -1,7 +1,7 @@
 package ru.mipt.bit.platformer.IO;
 
-import ru.mipt.bit.platformer.objects.Level;
+import ru.mipt.bit.platformer.base.Level;
 
 public interface LevelLoader {
-    Level loadLevel();
+    void loadLevel(Level level);
 }

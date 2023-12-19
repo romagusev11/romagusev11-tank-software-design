@@ -18,4 +18,7 @@ public class Tree implements GameObject {
     public float getRotation() {
         return 0;
     }
+
+    @Override
+    public void live(float deltaTime) {}
 }

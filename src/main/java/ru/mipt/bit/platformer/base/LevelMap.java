@@ -9,12 +9,12 @@ import ru.mipt.bit.platformer.util.GdxGameUtils;
 import ru.mipt.bit.platformer.util.TileMovement;
 
 
-public class Map {
+public class LevelMap {
     private final TiledMap level;
     private final TiledMapTileLayer groundLayer;
     private final TileMovement tileMovement;
 
-    public Map(String fileName) {
+    public LevelMap(String fileName) {
         level = new TmxMapLoader().load(fileName);
         groundLayer = GdxGameUtils.getSingleLayer(level);
         tileMovement = new TileMovement(groundLayer, Interpolation.smooth);

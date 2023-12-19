@@ -1,24 +1,54 @@
 package ru.mipt.bit.platformer.engine;
 
-import ru.mipt.bit.platformer.base.Direction;
-import ru.mipt.bit.platformer.objects.Tank;
+import ru.mipt.bit.platformer.actions.Action;
+import ru.mipt.bit.platformer.actions.ActionQueue;
+import ru.mipt.bit.platformer.objects.GameObject;
+import ru.mipt.bit.platformer.base.LevelListener;
+import ru.mipt.bit.platformer.objects.Player;
 
-public class LogicEngine {
+import java.util.*;
 
-    private final Tank player;
+public class LogicEngine implements LevelListener {
     private final CollisionDetector detector;
+    private final Collection<GameObject> objects = new ArrayList<>();
+    private final ActionQueue queue;
 
-    public LogicEngine(Tank player, CollisionDetector detector) {
-        this.player = player;
+
+    public Player fetchPlayer() {
+        for (GameObject object: objects) {
+            if (object instanceof Player) {
+                return (Player) object;
+            }
+        }
+        return null;
+    }
+
+    public LogicEngine(CollisionDetector detector, ActionQueue queue) {
+        this.queue = queue;
         this.detector = detector;
     }
 
-    public void updatePlayerDestination(Direction direction) {
-        player.tryToMove(direction, detector);
+    public CollisionDetector getDetector() {
+        return detector;
     }
 
-    public void calculatePlayerCoordinates(float deltaTime) {
-        player.updateMovementProgress(deltaTime);
+    public void tick(float deltaTime) {
+        queue.executeAllActions();
+        for (GameObject object : objects) {
+            object.live(deltaTime);
+        }
+    }
+
+    public void addAction(Action action) {
+        queue.addAction(action);
+    }
+
+    @Override
+    public void onObjectDeath(GameObject object) { objects.remove(object); }
+
+    @Override
+    public void onNewObject(GameObject object) {
+        objects.add(object);
     }
 }
 
