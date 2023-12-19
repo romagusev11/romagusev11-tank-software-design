@@ -3,15 +3,17 @@ package ru.mipt.bit.platformer.objects;
 import com.badlogic.gdx.math.GridPoint2;
 
 import ru.mipt.bit.platformer.base.Direction;
-import ru.mipt.bit.platformer.engine.CollisionDetector;
+import ru.mipt.bit.platformer.base.Level;
 import ru.mipt.bit.platformer.util.GdxGameUtils;
 
 public class Tank implements Movable {
     private float movementSpeed = 0.4f;
+    private float reload = 0f;
     private float rotation;
     private float movementProgress;
     private GridPoint2 coordinates;
     private GridPoint2 destination;
+
 
     public Tank(float initialRotation, GridPoint2 coordinates, float movementSpeed) {
         rotation = initialRotation;
@@ -45,15 +47,17 @@ public class Tank implements Movable {
         }
     }
 
-    public void tryToMove(Direction direction, CollisionDetector detector) {
-        if (movementProgress >= 1) {
-            // check potential  destination for collision with obstacles
-            if (!detector.checkCollision(this, direction)) {
-                movementProgress -= 1;
-                destination = GdxGameUtils.move(destination, direction.x, direction.y);
-            }
-            rotate(direction);
-        }
+    public void move(Direction direction) {
+        movementProgress -= 1;
+        destination = GdxGameUtils.move(destination, direction.x, direction.y);
+    }
+
+    public boolean onReload() {
+        return reload != 0;
+    }
+
+    public void shoot() {
+        reload += 1;
     }
 
     public GridPoint2 getCoordinates() {
@@ -63,6 +67,12 @@ public class Tank implements Movable {
     @Override
     public float getRotation() {
         return rotation;
+    }
+
+    @Override
+    public void live(float deltaTime) {
+        reload = Math.max(0, reload - deltaTime);
+        updateMovementProgress(deltaTime);
     }
 
     public void rotate(Direction direction) {

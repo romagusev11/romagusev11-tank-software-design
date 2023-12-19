@@ -9,8 +9,9 @@ import com.badlogic.gdx.math.GridPoint2;
 
 import ru.mipt.bit.platformer.base.Direction;
 import ru.mipt.bit.platformer.objects.GameObject;
+import ru.mipt.bit.platformer.base.LevelListener;
 
-public class CollisionDetector {
+public class CollisionDetector implements LevelListener {
 
     private final Collection<GameObject> collision = new ArrayList<GameObject>();
 
@@ -24,10 +25,20 @@ public class CollisionDetector {
     public boolean checkCollision(GameObject from, Direction direction) {
         GridPoint2 destination = move(from.getCoordinates(), direction.x, direction.y);
         for (GameObject c : collision) {
-            if (destination.equals(c.getCoordinates())) {
+            if (!c.equals(from) && destination.equals(c.getCoordinates())) {
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public void onObjectDeath(GameObject object) {
+        collision.remove(object);
+    }
+
+    @Override
+    public void onNewObject(GameObject object) {
+        this.addCollidable(object);
     }
 }

@@ -4,21 +4,15 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.badlogic.gdx.math.GridPoint2;
 
-import ru.mipt.bit.platformer.IO.FileLevelLoader;
 import ru.mipt.bit.platformer.IO.RandomLevelLoader;
-import ru.mipt.bit.platformer.objects.Level;
-import ru.mipt.bit.platformer.objects.Tree;
-import ru.mipt.bit.platformer.objects.Tank;
-import ru.mipt.bit.platformer.base.Map;
-import ru.mipt.bit.platformer.base.Mesh;
+import ru.mipt.bit.platformer.actions.ActionQueue;
+import ru.mipt.bit.platformer.base.Level;
+import ru.mipt.bit.platformer.base.LevelMap;
 import ru.mipt.bit.platformer.engine.CollisionDetector;
 import ru.mipt.bit.platformer.engine.InputHandler;
 import ru.mipt.bit.platformer.engine.LogicEngine;
 import ru.mipt.bit.platformer.engine.RenderEngine;
-import ru.mipt.bit.platformer.textures.MovableTexturedObject;
-import ru.mipt.bit.platformer.textures.StaticTexturedObject;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
@@ -30,20 +24,17 @@ public class GameDesktopLauncher implements ApplicationListener {
 
     @Override
     public void create() {
-        Map map = new Map("level.tmx");
+        LevelMap map = new LevelMap("level.tmx");
         //Level level = new FileLevelLoader("level.txt").loadLevel();
-        Level level = new RandomLevelLoader(10, 10, 0.1f).loadLevel();
-        Tank player = level.getTanks().iterator().next();
-        Mesh mesh = new Mesh().addDrawable(new MovableTexturedObject("images/tank_blue.png", map.getTileMovement(), player));
-        CollisionDetector detector = new CollisionDetector().addCollidable(player);
-        for (Tree tree: level.getTrees()) {
-            mesh.addDrawable(new StaticTexturedObject("images/greenTree.png", map.getGroundLayer(), tree));
-            detector.addCollidable(tree);
-        }
-        renderEngine = new RenderEngine(map, mesh);
+        CollisionDetector detector = new CollisionDetector();
+        ActionQueue queue = new ActionQueue();
+        logicEngine = new LogicEngine(detector, queue);
+        renderEngine = new RenderEngine(map);
+        Level level = new Level(queue);
+        level.addListener(renderEngine).addListener(detector).addListener(logicEngine);
+        new RandomLevelLoader(10, 10, 0.1f).loadLevel(level);
 
-        logicEngine = new LogicEngine(player, detector);
-        inputHandler = new InputHandler(logicEngine);
+        inputHandler = new InputHandler(logicEngine, level);
     }
 
     @Override
@@ -57,9 +48,7 @@ public class GameDesktopLauncher implements ApplicationListener {
 
         inputHandler.handleInput();
 
-        // calculate interpolated player screen coordinates
-
-        logicEngine.calculatePlayerCoordinates(deltaTime);
+        logicEngine.tick(deltaTime);
 
         renderEngine.render();
     }
