@@ -17,10 +17,10 @@ public class CollisionDetectorTest {
 
         detector.addCollidable(tank);
 
-        Assertions.assertFalse(detector.checkCollision(tank, Direction.UP));
-        Assertions.assertFalse(detector.checkCollision(tank, Direction.DOWN));
-        Assertions.assertFalse(detector.checkCollision(tank, Direction.LEFT));
-        Assertions.assertFalse(detector.checkCollision(tank, Direction.RIGHT));
+        Assertions.assertNull(detector.checkCollision(tank, Direction.UP));
+        Assertions.assertNull(detector.checkCollision(tank, Direction.DOWN));
+        Assertions.assertNull(detector.checkCollision(tank, Direction.LEFT));
+        Assertions.assertNull(detector.checkCollision(tank, Direction.RIGHT));
     }
 
     @Test
@@ -31,10 +31,10 @@ public class CollisionDetectorTest {
 
         detector.addCollidable(tank).addCollidable(tree);
 
-        Assertions.assertTrue(detector.checkCollision(tank, Direction.UP));
-        Assertions.assertFalse(detector.checkCollision(tank, Direction.DOWN));
-        Assertions.assertFalse(detector.checkCollision(tank, Direction.LEFT));
-        Assertions.assertFalse(detector.checkCollision(tank, Direction.RIGHT));
+        Assertions.assertNotNull(detector.checkCollision(tank, Direction.UP));
+        Assertions.assertNull(detector.checkCollision(tank, Direction.DOWN));
+        Assertions.assertNull(detector.checkCollision(tank, Direction.LEFT));
+        Assertions.assertNull(detector.checkCollision(tank, Direction.RIGHT));
     }
 
     @Test
@@ -49,9 +49,9 @@ public class CollisionDetectorTest {
                 .addCollidable(new Tree(new GridPoint2(0, -2)))
                 .addCollidable(new Tree(new GridPoint2(-2, 2)));
 
-        Assertions.assertFalse(detector.checkCollision(tank, Direction.UP));
-        Assertions.assertFalse(detector.checkCollision(tank, Direction.DOWN));
-        Assertions.assertFalse(detector.checkCollision(tank, Direction.LEFT));
-        Assertions.assertFalse(detector.checkCollision(tank, Direction.RIGHT));
+        Assertions.assertNull(detector.checkCollision(tank, Direction.UP));
+        Assertions.assertNull(detector.checkCollision(tank, Direction.DOWN));
+        Assertions.assertNull(detector.checkCollision(tank, Direction.LEFT));
+        Assertions.assertNull(detector.checkCollision(tank, Direction.RIGHT));
     }
 }

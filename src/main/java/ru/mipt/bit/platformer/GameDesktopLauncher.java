@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
+import ru.mipt.bit.platformer.AI.AITankController;
 import ru.mipt.bit.platformer.IO.RandomLevelLoader;
 import ru.mipt.bit.platformer.actions.ActionQueue;
 import ru.mipt.bit.platformer.base.Level;
@@ -31,7 +32,8 @@ public class GameDesktopLauncher implements ApplicationListener {
         logicEngine = new LogicEngine(detector, queue);
         renderEngine = new RenderEngine(map);
         Level level = new Level(queue);
-        level.addListener(renderEngine).addListener(detector).addListener(logicEngine);
+        AITankController controller = new AITankController(level, detector);
+        level.addListener(renderEngine).addListener(detector).addListener(logicEngine).addListener(controller);
         new RandomLevelLoader(10, 10, 0.1f).loadLevel(level);
 
         inputHandler = new InputHandler(logicEngine, level);

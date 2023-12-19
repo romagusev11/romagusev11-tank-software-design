@@ -42,7 +42,7 @@ public class Tank implements Movable {
     }
 
     public void move(Direction direction) {
-        movementProgress -= 1;
+        movementProgress = 0;
         destination = GdxGameUtils.move(destination, direction.x, direction.y);
     }
 
