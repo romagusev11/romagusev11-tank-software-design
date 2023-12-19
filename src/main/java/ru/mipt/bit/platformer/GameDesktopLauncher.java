@@ -40,7 +40,7 @@ public class GameDesktopLauncher implements ApplicationListener {
                 .addListener(logicEngine)
                 .addListener(aicontroller)
                 .addListener(playerController);
-        new RandomLevelLoader(10, 10, 0.1f).loadLevel(level);
+        new RandomLevelLoader(9, 7, 0.1f).loadLevel(level);
 
         inputHandler = new InputHandler(logicEngine, level);
     }

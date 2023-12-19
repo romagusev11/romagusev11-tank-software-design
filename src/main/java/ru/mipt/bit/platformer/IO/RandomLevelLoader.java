@@ -24,14 +24,21 @@ public class RandomLevelLoader implements LevelLoader {
 
     @Override
     public void loadLevel(Level level) {
-        GridPoint2 playerCoordinates = new GridPoint2(ThreadLocalRandom.current().nextInt(0, sizeX),
-                                                      ThreadLocalRandom.current().nextInt(0, sizeY));
+        GridPoint2 playerCoordinates = new GridPoint2(ThreadLocalRandom.current().nextInt(1, sizeX),
+                                                      ThreadLocalRandom.current().nextInt(1, sizeY));
         Player player = new Player(0, playerCoordinates);
         level.addObject(player);
         level.addAction(new CheckIsAlive(player, level));
 
-        for (int x = 0; x < sizeX; ++x) {
-            for (int y = 0; y < sizeY; ++y) {
+        for (int x = 0; x < sizeX + 1; ++x) {
+            for (int y = 0; y < sizeY + 1; ++y) {
+                if (x == 0 || x == sizeX || y == 0 || y == sizeY) {
+                    GridPoint2 tree = new GridPoint2(x, y);
+                    if (!tree.equals(playerCoordinates)) {
+                        level.addObject(new Tree(tree));
+                    }
+                    continue;
+                }
                 int randomNum = ThreadLocalRandom.current().nextInt(0, BOUND * 2);
                 if (randomNum < density * BOUND) {
                     GridPoint2 tree = new GridPoint2(x, y);
