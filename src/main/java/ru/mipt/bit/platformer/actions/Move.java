@@ -2,10 +2,8 @@ package ru.mipt.bit.platformer.actions;
 
 import ru.mipt.bit.platformer.base.Direction;
 import ru.mipt.bit.platformer.engine.CollisionDetector;
-import ru.mipt.bit.platformer.objects.Bullet;
 import ru.mipt.bit.platformer.objects.Movable;
-import ru.mipt.bit.platformer.objects.Tank;
-import ru.mipt.bit.platformer.util.GdxGameUtils;
+import ru.mipt.bit.platformer.objects.tank.Tank;
 
 public class Move implements Action {
 

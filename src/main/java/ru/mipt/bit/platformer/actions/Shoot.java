@@ -4,7 +4,7 @@ import ru.mipt.bit.platformer.base.Direction;
 import ru.mipt.bit.platformer.base.Level;
 import ru.mipt.bit.platformer.engine.CollisionDetector;
 import ru.mipt.bit.platformer.objects.Bullet;
-import ru.mipt.bit.platformer.objects.Tank;
+import ru.mipt.bit.platformer.objects.tank.Tank;
 import ru.mipt.bit.platformer.util.GdxGameUtils;
 
 public class Shoot implements Action {
@@ -19,10 +19,10 @@ public class Shoot implements Action {
 
     @Override
     public void execute() {
-        if (tank.onReload()) {
+        if (tank.shoot()) {
             return;
         }
-        tank.shoot();
+
         float rotation = tank.getRotation();
 
         Direction direction = Direction.fromRotation(rotation);

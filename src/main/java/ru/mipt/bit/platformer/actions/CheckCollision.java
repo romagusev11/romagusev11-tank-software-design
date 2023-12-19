@@ -25,7 +25,7 @@ public class CheckCollision implements Action {
             if (detector.checkCollision(bullet, Direction.NONE)) {
                 level.removeObject(bullet);
             } else {
-                level.addAction(new CheckCollision(object, detector, level));
+                level.addAction(this);
             }
         }
     }
