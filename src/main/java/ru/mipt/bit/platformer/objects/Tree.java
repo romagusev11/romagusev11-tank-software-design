@@ -1,17 +1,21 @@
 package ru.mipt.bit.platformer.objects;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 
-import ru.mipt.bit.platformer.textures.StaticTexturedObject;
+public class Tree implements GameObject {
 
-public class Tree extends StaticTexturedObject implements Collidable {
+    private final GridPoint2 coordinates;
 
-    public Tree(String pathToTexture, GridPoint2 coordinates, TiledMapTileLayer groundLayer) {
-        super(pathToTexture, coordinates, groundLayer);
+    public Tree(GridPoint2 coordinates) {
+        this.coordinates = coordinates;
     }
 
     public GridPoint2 getCoordinates() {
         return coordinates;
+    }
+
+    @Override
+    public float getRotation() {
+        return 0;
     }
 }

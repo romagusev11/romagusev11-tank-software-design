@@ -14,13 +14,7 @@ public class LogicEngine {
     }
 
     public void updatePlayerDestination(Direction direction) {
-        if (player.getMovementProgress() >= 1) {
-            // check potential player destination for collision with obstacles
-            if (detector.checkCollision(player, direction)) {
-                player.move(direction);
-            }
-            player.rotate(direction);
-        }
+        player.tryToMove(direction, detector);
     }
 
     public void calculatePlayerCoordinates(float deltaTime) {
