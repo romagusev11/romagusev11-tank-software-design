@@ -2,7 +2,7 @@ package ru.mipt.bit.platformer.IO;
 
 import com.badlogic.gdx.math.GridPoint2;
 import ru.mipt.bit.platformer.actions.CheckIsAlive;
-import ru.mipt.bit.platformer.objects.Player;
+import ru.mipt.bit.platformer.player.Player;
 import ru.mipt.bit.platformer.base.Level;
 import ru.mipt.bit.platformer.objects.Tree;
 import ru.mipt.bit.platformer.objects.tank.Tank;
@@ -43,7 +43,6 @@ public class RandomLevelLoader implements LevelLoader {
                     if (!tankCoordinates.equals(playerCoordinates)) {
                         Tank tank = new Tank(0, tankCoordinates);
                         level.addObject(tank);
-                        level.addAction(new CheckIsAlive(tank, level));
                     }
                 }
             }

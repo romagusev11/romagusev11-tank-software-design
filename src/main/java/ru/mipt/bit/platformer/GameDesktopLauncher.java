@@ -14,6 +14,7 @@ import ru.mipt.bit.platformer.engine.CollisionDetector;
 import ru.mipt.bit.platformer.engine.InputHandler;
 import ru.mipt.bit.platformer.engine.LogicEngine;
 import ru.mipt.bit.platformer.engine.RenderEngine;
+import ru.mipt.bit.platformer.player.PlayerController;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
@@ -32,8 +33,13 @@ public class GameDesktopLauncher implements ApplicationListener {
         logicEngine = new LogicEngine(detector, queue);
         renderEngine = new RenderEngine(map);
         Level level = new Level(queue);
-        AITankController controller = new AITankController(level, detector);
-        level.addListener(renderEngine).addListener(detector).addListener(logicEngine).addListener(controller);
+        AITankController aicontroller = new AITankController(level, detector);
+        PlayerController playerController = new PlayerController(level);
+        level.addListener(renderEngine)
+                .addListener(detector)
+                .addListener(logicEngine)
+                .addListener(aicontroller)
+                .addListener(playerController);
         new RandomLevelLoader(10, 10, 0.1f).loadLevel(level);
 
         inputHandler = new InputHandler(logicEngine, level);

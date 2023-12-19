@@ -6,7 +6,7 @@ import ru.mipt.bit.platformer.actions.Move;
 import ru.mipt.bit.platformer.actions.Shoot;
 import ru.mipt.bit.platformer.base.Direction;
 import ru.mipt.bit.platformer.base.Level;
-import ru.mipt.bit.platformer.objects.Player;
+import ru.mipt.bit.platformer.player.Player;
 
 import static com.badlogic.gdx.Input.Keys.*;
 

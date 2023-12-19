@@ -1,12 +1,12 @@
 package ru.mipt.bit.platformer.AI;
 
 import ru.mipt.bit.platformer.actions.Action;
-import ru.mipt.bit.platformer.base.Direction;
+import ru.mipt.bit.platformer.actions.CheckIsAlive;
 import ru.mipt.bit.platformer.base.Level;
 import ru.mipt.bit.platformer.base.LevelListener;
 import ru.mipt.bit.platformer.engine.CollisionDetector;
 import ru.mipt.bit.platformer.objects.GameObject;
-import ru.mipt.bit.platformer.objects.Player;
+import ru.mipt.bit.platformer.player.Player;
 import ru.mipt.bit.platformer.objects.tank.Tank;
 
 import java.util.ArrayList;
@@ -38,6 +38,7 @@ public class AITankController implements LevelListener {
             Tank aitank = (Tank) object;
             storage.add(aitank);
             level.addAction(new ChooseNextAction(this, aitank, level));
+            level.addAction(new CheckIsAlive(aitank, level));
         }
     }
 

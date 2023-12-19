@@ -4,7 +4,7 @@ import ru.mipt.bit.platformer.actions.Action;
 import ru.mipt.bit.platformer.actions.ActionQueue;
 import ru.mipt.bit.platformer.objects.GameObject;
 import ru.mipt.bit.platformer.base.LevelListener;
-import ru.mipt.bit.platformer.objects.Player;
+import ru.mipt.bit.platformer.player.Player;
 
 import java.util.*;
 
