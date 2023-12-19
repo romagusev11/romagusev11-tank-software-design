@@ -1,6 +1,7 @@
 package ru.mipt.bit.platformer.IO;
 
 import com.badlogic.gdx.math.GridPoint2;
+import ru.mipt.bit.platformer.actions.CheckIsAlive;
 import ru.mipt.bit.platformer.objects.Player;
 import ru.mipt.bit.platformer.base.Level;
 import ru.mipt.bit.platformer.objects.Tree;
@@ -32,7 +33,9 @@ public class FileLevelLoader implements LevelLoader{
                     if (strLine.charAt(x) == 'T') {
                         level.addObject(new Tree(new GridPoint2(x, y)));
                     } else if (strLine.charAt(x) == 'X') {
-                        level.addObject(new Player(0, new GridPoint2(x, y)));
+                        Player player = new Player(0, new GridPoint2(x, y));
+                        level.addObject(player);
+                        level.addAction(new CheckIsAlive(player, level));
                     }
                 }
                 y++;

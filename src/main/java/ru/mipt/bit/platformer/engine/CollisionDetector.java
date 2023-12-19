@@ -22,14 +22,14 @@ public class CollisionDetector implements LevelListener {
         return this;
     }
 
-    public boolean checkCollision(GameObject from, Direction direction) {
+    public GameObject checkCollision(GameObject from, Direction direction) {
         GridPoint2 destination = move(from.getCoordinates(), direction.x, direction.y);
         for (GameObject c : collision) {
             if (!c.equals(from) && destination.equals(c.getCoordinates())) {
-                return true;
+                return c;
             }
         }
-        return false;
+        return null;
     }
 
     @Override

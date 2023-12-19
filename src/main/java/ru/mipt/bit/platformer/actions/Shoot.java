@@ -19,7 +19,7 @@ public class Shoot implements Action {
 
     @Override
     public void execute() {
-        if (tank.shoot()) {
+        if (!tank.shoot()) {
             return;
         }
 

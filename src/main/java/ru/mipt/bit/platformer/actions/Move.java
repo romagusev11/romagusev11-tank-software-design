@@ -2,6 +2,7 @@ package ru.mipt.bit.platformer.actions;
 
 import ru.mipt.bit.platformer.base.Direction;
 import ru.mipt.bit.platformer.engine.CollisionDetector;
+import ru.mipt.bit.platformer.objects.GameObject;
 import ru.mipt.bit.platformer.objects.Movable;
 import ru.mipt.bit.platformer.objects.tank.Tank;
 
@@ -23,7 +24,8 @@ public class Move implements Action {
             Tank tank = (Tank) object;
             if (tank.getMovementProgress() >= 1) {
                 // check potential  destination for collision with obstacles
-                if (!detector.checkCollision(tank, direction)) {
+                GameObject collision = detector.checkCollision(tank, direction);
+                if (collision == null) {
                     tank.move(direction);
                 }
                 tank.rotate(direction);
