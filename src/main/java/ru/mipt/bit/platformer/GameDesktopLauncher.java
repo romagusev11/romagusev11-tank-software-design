@@ -5,14 +5,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
+import ru.mipt.bit.platformer.AI.AITankController;
 import ru.mipt.bit.platformer.IO.RandomLevelLoader;
-import ru.mipt.bit.platformer.actions.ActionQueue;
+import ru.mipt.bit.platformer.base.ActionQueue;
 import ru.mipt.bit.platformer.base.Level;
 import ru.mipt.bit.platformer.base.LevelMap;
-import ru.mipt.bit.platformer.engine.CollisionDetector;
+import ru.mipt.bit.platformer.detector.CollisionDetector;
 import ru.mipt.bit.platformer.engine.InputHandler;
 import ru.mipt.bit.platformer.engine.LogicEngine;
 import ru.mipt.bit.platformer.engine.RenderEngine;
+import ru.mipt.bit.platformer.player.PlayerController;
 
 import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
@@ -28,13 +30,19 @@ public class GameDesktopLauncher implements ApplicationListener {
         //Level level = new FileLevelLoader("level.txt").loadLevel();
         CollisionDetector detector = new CollisionDetector();
         ActionQueue queue = new ActionQueue();
-        logicEngine = new LogicEngine(detector, queue);
         renderEngine = new RenderEngine(map);
         Level level = new Level(queue);
-        level.addListener(renderEngine).addListener(detector).addListener(logicEngine);
-        new RandomLevelLoader(10, 10, 0.1f).loadLevel(level);
+        logicEngine = new LogicEngine(level);
+        AITankController aicontroller = new AITankController(level, detector);
+        PlayerController playerController = new PlayerController(level);
+        level.addListener(renderEngine)
+                .addListener(detector)
+                .addListener(logicEngine)
+                .addListener(aicontroller)
+                .addListener(playerController);
+        new RandomLevelLoader(9, 7, 0.1f).loadLevel(level);
 
-        inputHandler = new InputHandler(logicEngine, level);
+        inputHandler = new InputHandler(playerController.fetchPlayer(), level, detector);
     }
 
     @Override

@@ -6,9 +6,9 @@ import com.badlogic.gdx.maps.MapRenderer;
 
 import ru.mipt.bit.platformer.base.LevelMap;
 import ru.mipt.bit.platformer.objects.Bullet;
-import ru.mipt.bit.platformer.objects.GameObject;
+import ru.mipt.bit.platformer.base.GameObject;
 import ru.mipt.bit.platformer.base.LevelListener;
-import ru.mipt.bit.platformer.objects.Tank;
+import ru.mipt.bit.platformer.objects.tank.Tank;
 import ru.mipt.bit.platformer.objects.Tree;
 import ru.mipt.bit.platformer.textures.Drawable;
 import ru.mipt.bit.platformer.textures.MovableTexturedObject;

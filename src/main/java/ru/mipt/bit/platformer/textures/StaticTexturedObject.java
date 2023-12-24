@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 
-import ru.mipt.bit.platformer.objects.GameObject;
+import ru.mipt.bit.platformer.base.GameObject;
 import ru.mipt.bit.platformer.util.GdxGameUtils;
 
 

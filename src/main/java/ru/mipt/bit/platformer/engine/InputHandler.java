@@ -6,37 +6,37 @@ import ru.mipt.bit.platformer.actions.Move;
 import ru.mipt.bit.platformer.actions.Shoot;
 import ru.mipt.bit.platformer.base.Direction;
 import ru.mipt.bit.platformer.base.Level;
-import ru.mipt.bit.platformer.objects.Player;
+import ru.mipt.bit.platformer.detector.CollisionDetector;
+import ru.mipt.bit.platformer.player.Player;
 
 import static com.badlogic.gdx.Input.Keys.*;
 
 public class InputHandler {
-
-    private final LogicEngine logicEngine;
-    private final Player player;
     private final Level level;
+    private final Player player;
+    private final CollisionDetector detector;
 
-    public InputHandler(LogicEngine logicEngine, Level level) {
-        this.logicEngine = logicEngine;
-        this.player = logicEngine.fetchPlayer();
+    public InputHandler(Player player, Level level, CollisionDetector detector) {
         this.level = level;
+        this.player = player;
+        this.detector = detector;
     }
 
     public void handleInput() {
         if (Gdx.input.isKeyPressed(UP) || Gdx.input.isKeyPressed(W)) {
-            logicEngine.addAction(new Move(player, logicEngine.getDetector(), Direction.UP));
+            level.addAction(new Move(player, detector, Direction.UP));
             }
         if (Gdx.input.isKeyPressed(LEFT) || Gdx.input.isKeyPressed(A)) {
-            logicEngine.addAction(new Move(player, logicEngine.getDetector(), Direction.LEFT));
+            level.addAction(new Move(player, detector, Direction.LEFT));
             }
         if (Gdx.input.isKeyPressed(DOWN) || Gdx.input.isKeyPressed(S)) {
-            logicEngine.addAction(new Move(player, logicEngine.getDetector(), Direction.DOWN));
+            level.addAction(new Move(player, detector, Direction.DOWN));
             }
         if (Gdx.input.isKeyPressed(RIGHT) || Gdx.input.isKeyPressed(D)) {
-            logicEngine.addAction(new Move(player, logicEngine.getDetector(), Direction.RIGHT));
+            level.addAction(new Move(player, detector, Direction.RIGHT));
         }
         if (Gdx.input.isKeyPressed(SPACE)) {
-            logicEngine.addAction(new Shoot(player, level, logicEngine.getDetector()));
+            level.addAction(new Shoot(player, level, detector));
         }
     }
 }

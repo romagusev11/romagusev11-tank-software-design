@@ -1,4 +1,4 @@
-package ru.mipt.bit.platformer.actions;
+package ru.mipt.bit.platformer.base;
 
 import java.util.LinkedList;
 import java.util.Queue;
