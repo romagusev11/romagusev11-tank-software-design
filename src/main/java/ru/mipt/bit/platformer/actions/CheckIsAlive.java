@@ -1,5 +1,6 @@
 package ru.mipt.bit.platformer.actions;
 
+import ru.mipt.bit.platformer.base.Action;
 import ru.mipt.bit.platformer.base.Level;
 import ru.mipt.bit.platformer.objects.tank.Tank;
 

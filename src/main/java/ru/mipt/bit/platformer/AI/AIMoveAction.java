@@ -1,9 +1,9 @@
 package ru.mipt.bit.platformer.AI;
 
-import ru.mipt.bit.platformer.actions.Action;
+import ru.mipt.bit.platformer.base.Action;
 import ru.mipt.bit.platformer.actions.Move;
 import ru.mipt.bit.platformer.base.Direction;
-import ru.mipt.bit.platformer.engine.CollisionDetector;
+import ru.mipt.bit.platformer.detector.CollisionDetector;
 import ru.mipt.bit.platformer.objects.tank.Tank;
 
 public class AIMoveAction implements Action {

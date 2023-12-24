@@ -1,9 +1,5 @@
 package ru.mipt.bit.platformer.base;
 
-import ru.mipt.bit.platformer.actions.Action;
-import ru.mipt.bit.platformer.actions.ActionQueue;
-import ru.mipt.bit.platformer.objects.GameObject;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -26,6 +22,10 @@ public class Level {
         for (LevelListener listener : listeners) {
             listener.onNewObject(object);
         }
+    }
+
+    public void executeAllActions() {
+        queue.executeAllActions();
     }
 
     public void removeObject(GameObject object) {

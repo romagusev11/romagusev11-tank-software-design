@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.mipt.bit.platformer.base.Direction;
-import ru.mipt.bit.platformer.engine.CollisionDetector;
+import ru.mipt.bit.platformer.detector.CollisionDetector;
 import ru.mipt.bit.platformer.objects.Tree;
 import ru.mipt.bit.platformer.objects.tank.Tank;
 

@@ -1,11 +1,11 @@
 package ru.mipt.bit.platformer.AI;
 
-import ru.mipt.bit.platformer.actions.Action;
+import ru.mipt.bit.platformer.base.Action;
 import ru.mipt.bit.platformer.actions.CheckIsAlive;
 import ru.mipt.bit.platformer.base.Level;
 import ru.mipt.bit.platformer.base.LevelListener;
-import ru.mipt.bit.platformer.engine.CollisionDetector;
-import ru.mipt.bit.platformer.objects.GameObject;
+import ru.mipt.bit.platformer.detector.CollisionDetector;
+import ru.mipt.bit.platformer.base.GameObject;
 import ru.mipt.bit.platformer.player.Player;
 import ru.mipt.bit.platformer.objects.tank.Tank;
 

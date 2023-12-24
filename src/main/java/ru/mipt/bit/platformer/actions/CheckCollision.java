@@ -1,11 +1,12 @@
 package ru.mipt.bit.platformer.actions;
 
+import ru.mipt.bit.platformer.base.Action;
 import ru.mipt.bit.platformer.base.Direction;
 import ru.mipt.bit.platformer.base.Level;
-import ru.mipt.bit.platformer.engine.CollisionDetector;
+import ru.mipt.bit.platformer.detector.CollisionDetector;
 import ru.mipt.bit.platformer.objects.Bullet;
 import ru.mipt.bit.platformer.objects.tank.Tank;
-import ru.mipt.bit.platformer.objects.GameObject;
+import ru.mipt.bit.platformer.base.GameObject;
 
 public class CheckCollision implements Action {
 

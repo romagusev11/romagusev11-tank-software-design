@@ -1,8 +1,9 @@
 package ru.mipt.bit.platformer.actions;
 
+import ru.mipt.bit.platformer.base.Action;
 import ru.mipt.bit.platformer.base.Direction;
-import ru.mipt.bit.platformer.engine.CollisionDetector;
-import ru.mipt.bit.platformer.objects.GameObject;
+import ru.mipt.bit.platformer.detector.CollisionDetector;
+import ru.mipt.bit.platformer.base.GameObject;
 import ru.mipt.bit.platformer.objects.Movable;
 import ru.mipt.bit.platformer.objects.tank.Tank;
 

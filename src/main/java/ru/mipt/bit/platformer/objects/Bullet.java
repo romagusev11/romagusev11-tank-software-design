@@ -2,10 +2,9 @@ package ru.mipt.bit.platformer.objects;
 
 import com.badlogic.gdx.math.GridPoint2;
 import ru.mipt.bit.platformer.base.Direction;
-import ru.mipt.bit.platformer.base.Level;
 import ru.mipt.bit.platformer.util.GdxGameUtils;
 
-public class Bullet implements Movable{
+public class Bullet implements Movable {
     private final float movementSpeed = 0.25f;
     private final float rotation;
     private float movementProgress;
@@ -14,12 +13,10 @@ public class Bullet implements Movable{
 
     private final Direction direction;
 
-    private final Level level;
 
-    public Bullet(float initialRotation, GridPoint2 coordinates, Direction direction, Level level) {
+    public Bullet(float initialRotation, GridPoint2 coordinates, Direction direction) {
         rotation = initialRotation;
         this.direction = direction;
-        this.level = level;
         movementProgress = 0;
         this.coordinates = coordinates;
         destination = coordinates;

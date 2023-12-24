@@ -1,4 +1,4 @@
-package ru.mipt.bit.platformer.engine;
+package ru.mipt.bit.platformer.detector;
 
 import static ru.mipt.bit.platformer.util.GdxGameUtils.move;
 
@@ -8,7 +8,7 @@ import java.util.Collection;
 import com.badlogic.gdx.math.GridPoint2;
 
 import ru.mipt.bit.platformer.base.Direction;
-import ru.mipt.bit.platformer.objects.GameObject;
+import ru.mipt.bit.platformer.base.GameObject;
 import ru.mipt.bit.platformer.base.LevelListener;
 
 public class CollisionDetector implements LevelListener {
